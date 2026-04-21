@@ -1,0 +1,25 @@
+name: Upload Artifact Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create a sample file
+        run: |
+          mkdir output
+          echo "Hello GitHub Actions" > output/sample.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sample-artifact
+          path: output/sample.txt
