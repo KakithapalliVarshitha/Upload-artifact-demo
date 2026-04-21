@@ -1,4 +1,4 @@
-name: Upload Artifact Example
+name: Job Dependency Example
 
 on:
   push:
@@ -8,18 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - run: echo "Build completed"
 
-      - name: Create a sample file
-        run: |
-          mkdir output
-          echo "Hello GitHub Actions" > output/sample.txt
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: sample-artifact
-          path: output/sample.txt
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Test started after build"
